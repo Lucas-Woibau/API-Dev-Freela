@@ -72,7 +72,6 @@ namespace DevFreela.API.Persistence
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-
             base.OnModelCreating(builder);
         }
     }
