@@ -50,7 +50,7 @@ namespace DevFreela.Application.Services
 
             if (project == null)
             {
-                return ResultViewModel<ProjectViewModel>.Error("Projeto não existe!");
+                return ResultViewModel.Error("Projeto não existe!");
             }
 
             project.Update(model.Title, model.Description, model.TotalCost);
@@ -66,7 +66,7 @@ namespace DevFreela.Application.Services
 
             if (project == null)
             {
-                return ResultViewModel<ProjectViewModel>.Error("Projeto não existe!");
+                return ResultViewModel.Error("Projeto não existe!");
             }
 
             project.SetAsDeleted();
@@ -82,7 +82,7 @@ namespace DevFreela.Application.Services
 
             if (project == null)
             {
-                return ResultViewModel<ProjectViewModel>.Error("Projeto não existe!");
+                return ResultViewModel.Error("Projeto não existe!");
             }
 
             project.Complete();
@@ -108,7 +108,7 @@ namespace DevFreela.Application.Services
 
             if (project == null)
             {
-                return ResultViewModel<ProjectViewModel>.Error("Projeto não existe!");
+                return ResultViewModel.Error("Projeto não existe!");
             }
 
             var comment = new ProjectComment(model.Content, model.IdProject, model.IdUser);
@@ -116,7 +116,7 @@ namespace DevFreela.Application.Services
             _context.ProjectComments.Add(comment);
             _context.SaveChanges();
 
-            return ResultViewModel<ProjectComment>.Success(comment);
+            return ResultViewModel.Success();
         }
 
         public ResultViewModel Start(int id)
@@ -125,7 +125,7 @@ namespace DevFreela.Application.Services
 
             if (project == null)
             {
-                return ResultViewModel<ProjectViewModel>.Error("Projeto não existe!");
+                return ResultViewModel.Error("Projeto não existe!");
             }
 
             project.Start();
