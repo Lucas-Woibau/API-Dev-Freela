@@ -1,0 +1,31 @@
+﻿using DevFreela.Core.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DevFreela.Application.Models
+{
+    public class UserItemViewModel
+    {
+        public UserItemViewModel(string fullName, string email, DateTime birthDate, List<string> skills)
+        {
+            FullName = fullName;
+            Email = email;
+            BirthDate = birthDate;
+            Skills = skills;
+        }
+
+        public string FullName { get; private set; }
+        public string Email { get; private set; }
+        public DateTime BirthDate { get; private set; }
+        public List<string> Skills { get; private set; }
+
+        public static UserItemViewModel FromEntity(User user)
+        {
+            var skills = user.Skills.Select(u => u.Skill.Description).ToList();
+            return new UserItemViewModel(user.FullName, user.Email, user.BirthDate, skills);
+        }
+    }
+}

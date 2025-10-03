@@ -1,4 +1,5 @@
 ﻿using DevFreela.Application.Models;
+using DevFreela.Application.Services;
 using DevFreela.Core.Entities;
 using DevFreela.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -10,38 +11,32 @@ namespace DevFreela.API.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly DevFreelaDbContext _context;
-        public UsersController(DevFreelaDbContext context)
+        private readonly IUserService _service;
+        public UsersController(IUserService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var user = _context.Users
-                .Include(u => u.Skills)
-                .ThenInclude(u => u.Skill)
-                .SingleOrDefault(u => u.Id == id);
+            var result = _service.GetById(id);
 
-            if(user == null)
-            {
-                return NotFound();
-            }
-
-            var model = UserViewModel.FromEntity(user);
-
-            return Ok(model);
+            return Ok(result);
         }
 
-        //POST api/users
         [HttpPost]
         public IActionResult Post(CreateUserInputModel model)
         {
-            var user = new User(model.FullName, model.Email, model.BirthDate);
+            var result = _service.Insert(model);
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var result = _service.Delete(id);
 
             return NoContent();
         }
@@ -49,10 +44,10 @@ namespace DevFreela.API.Controllers
         [HttpPost("{id}/skills")]
         public IActionResult PostSkills(int id, UserSkillsInputModel model)
         {
-            var userSkill  = model.SkillIds.Select(s => new UserSkill(id,s)).ToList();
+            var userSkill = model.SkillIds.Select(s => new UserSkill(id, s)).ToList();
 
-            _context.UserSkills.AddRange(userSkill);
-            _context.SaveChanges();
+            _service.UserSkills.AddRange(userSkill);
+            _service.SaveChanges();
 
             return NoContent();
         }

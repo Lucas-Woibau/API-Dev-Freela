@@ -24,5 +24,12 @@
         public List<Project> FreelancerProjects { get; private set; }
 
         public List<ProjectComment> Comments { get; private set; }
+
+        public void Update(string fullName, string email, DateTime birthDate)
+        {
+            FullName = fullName;
+            Email = email;
+            BirthDate = birthDate;
+        }
     }
 }
