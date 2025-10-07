@@ -8,9 +8,9 @@
             IdSkill = idSkill;
         }
 
-        public int IdUser { get; private set; }
+        public int IdUser { get; set; }
         public User User { get; private set; }
-        public int IdSkill { get; private set; }
+        public int IdSkill { get; set; }
         public Skill Skill { get; private set; }
     }
 }

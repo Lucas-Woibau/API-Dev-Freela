@@ -1,10 +1,6 @@
 ﻿using DevFreela.Application.Models;
 using DevFreela.Infrastructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevFreela.Application.Services
 {
@@ -17,8 +13,11 @@ namespace DevFreela.Application.Services
         }
         public ResultViewModel<List<UserItemViewModel>> GetAll(string search = "")
         {
-            var users = _context.Users.Where(p => !p.IsDeleted
-                && (search == "" || p.FullName.Contains(search)))
+            var users = _context.Users
+                .Include(u => u.Skills)
+                .ThenInclude(u => u.Skill)
+                .Where(u => !u.IsDeleted
+                && (search == "" || u.FullName.Contains(search)))              
                 .ToList();
 
             var model = users.Select(UserItemViewModel.FromEntity).ToList();
@@ -28,7 +27,10 @@ namespace DevFreela.Application.Services
 
         public ResultViewModel<UserViewModel> GetById(int id)
         {
-            var user = _context.Users.FirstOrDefault(p => p.Id == id);
+            var user = _context.Users
+                .Include(u => u.Skills)
+                .ThenInclude(us => us.Skill)
+                .FirstOrDefault(u => u.Id == id);
 
             if (user == null)
             {

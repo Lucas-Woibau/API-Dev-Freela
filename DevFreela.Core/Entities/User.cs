@@ -9,7 +9,7 @@
             BirthDate = birthDate;
             Active = true;
 
-            Skills = [];
+            Skills = new List<UserSkill>(); 
             OwnedProjects = [];
             FreelancerProjects = [];
             Comments = [];
