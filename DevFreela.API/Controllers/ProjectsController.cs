@@ -1,11 +1,11 @@
-﻿using DevFreela.Application.Commands.CompleteProject;
-using DevFreela.Application.Commands.DeleteProject;
-using DevFreela.Application.Commands.InsertComment;
-using DevFreela.Application.Commands.InsertProject;
-using DevFreela.Application.Commands.StartProject;
-using DevFreela.Application.Commands.UpdateProject;
-using DevFreela.Application.Queries.GetAllProjects;
-using DevFreela.Application.Queries.GetProjectById;
+﻿using DevFreela.Application.Commands.ProjectCommands.CompleteProject;
+using DevFreela.Application.Commands.ProjectCommands.DeleteProject;
+using DevFreela.Application.Commands.ProjectCommands.InsertComment;
+using DevFreela.Application.Commands.ProjectCommands.InsertProject;
+using DevFreela.Application.Commands.ProjectCommands.UpdateProject;
+using DevFreela.Application.Commands.ProjectCommands.StartProject;
+using DevFreela.Application.Queries.ProjectQueries.GetAllProjects;
+using DevFreela.Application.Queries.ProjectQueries.GetProjectById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +21,6 @@ namespace DevFreela.API.Controllers
             _mediator = mediator;
         }
 
-        // GET api/projects?search=crm
         [HttpGet]
         public async Task<IActionResult> Get(string search = "")
         {
@@ -32,7 +31,6 @@ namespace DevFreela.API.Controllers
             return Ok(result);
         }
 
-        //GET api/projects/1234
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -46,7 +44,6 @@ namespace DevFreela.API.Controllers
             return Ok(result);
         }
 
-        //POST api/projects
         [HttpPost]
         public async Task<IActionResult> Post(InsertProjectCommand command)
         {
@@ -60,7 +57,6 @@ namespace DevFreela.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
         }
 
-        //PUT api/projects/1234
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, UpdateProjectCommand command)
         {
@@ -74,7 +70,6 @@ namespace DevFreela.API.Controllers
             return Ok();
         }
 
-        //DELETE api/projects/1234
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -88,7 +83,6 @@ namespace DevFreela.API.Controllers
             return Ok();
         }
 
-        //PUT api/projects/1234/start
         [HttpPut("{id}/start")]
         public async Task<IActionResult> Start(int id)
         {
@@ -102,7 +96,6 @@ namespace DevFreela.API.Controllers
             return Ok();
         }
 
-        //PUT api/projects/1234/start
         [HttpPut("{id}/complete")]
         public async Task<IActionResult> Complete(int id)
         {
@@ -116,7 +109,6 @@ namespace DevFreela.API.Controllers
             return Ok();
         }
 
-        //POST api/projects/1234/comments
         [HttpPost("{id}/comments")]
         public async Task<IActionResult> PostComment(int id, InsertCommentCommand command)
         {
