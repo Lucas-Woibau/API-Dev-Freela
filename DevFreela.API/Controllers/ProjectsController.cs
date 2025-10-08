@@ -25,8 +25,6 @@ namespace DevFreela.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string search = "")
         {
-            //var result = _service.GetAll();
-
             var query = new GetAllProjectsQuery();
 
             var result = await _mediator.Send(query);
