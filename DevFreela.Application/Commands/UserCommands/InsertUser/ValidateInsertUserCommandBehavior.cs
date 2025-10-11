@@ -7,7 +7,6 @@ namespace DevFreela.Application.Commands.UserCommands.InsertUser
 {
     public class ValidateInsertUserCommandBehavior : IPipelineBehavior<InsertUserCommand, ResultViewModel<int>>
     {
-
         private DevFreelaDbContext _context;
         public ValidateInsertUserCommandBehavior(DevFreelaDbContext context)
         {

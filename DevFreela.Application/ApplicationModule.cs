@@ -1,9 +1,9 @@
-﻿using DevFreela.Application.Services;
-using Microsoft.Extensions.DependencyInjection;
-using MediatR;
-using DevFreela.Application.Models;
-using DevFreela.Application.Commands.ProjectCommands.InsertProject;
+﻿using DevFreela.Application.Commands.ProjectCommands.InsertProject;
 using DevFreela.Application.Commands.UserCommands.InsertUser;
+using DevFreela.Application.Models;
+using DevFreela.Application.Services;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DevFreela.Application
 {
@@ -20,8 +20,6 @@ namespace DevFreela.Application
 
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IProjectService, ProjectService>();
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserSkillService, UserSkillService>();
 
             return services;

@@ -1,5 +1,4 @@
 ﻿using DevFreela.Core.Entities;
-using System.ComponentModel.DataAnnotations;
 
 namespace DevFreela.Application.Models
 {

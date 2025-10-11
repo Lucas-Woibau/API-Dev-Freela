@@ -22,7 +22,7 @@ namespace DevFreela.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("{idUser}")]
+        [HttpPost]
         public IActionResult AddSkillToUser(int idUser, int idSkill)
         {
             var result = _service.AddSkillToUser(idUser, idSkill);
@@ -30,7 +30,7 @@ namespace DevFreela.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("{idUser}")]
+        [HttpDelete]
         public IActionResult DeleteSkill(int idUser, int idSkill)
         {
             var result = _service.RemoveSkillFromUser(idUser, idSkill);
