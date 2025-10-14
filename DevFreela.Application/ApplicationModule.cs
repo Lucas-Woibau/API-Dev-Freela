@@ -2,6 +2,9 @@
 using DevFreela.Application.Commands.UserCommands.InsertUser;
 using DevFreela.Application.Models;
 using DevFreela.Application.Services;
+using DevFreela.Application.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +16,8 @@ namespace DevFreela.Application
         {
             services
                 .AddServices()
-                .AddHandlers();
+                .AddHandlers()
+                .AddValidation();
 
             return services;
         }
@@ -33,6 +37,15 @@ namespace DevFreela.Application
                 .AddTransient<IPipelineBehavior<InsertProjectCommand, ResultViewModel<int>>, ValidateInsertProjectCommandBehavior>();
             services
                 .AddTransient<IPipelineBehavior<InsertUserCommand, ResultViewModel<int>>, ValidateInsertUserCommandBehavior>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddValidation(this IServiceCollection services)
+        {
+            services
+                .AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssemblyContaining<InsertUserValidator>();
 
             return services;
         }
