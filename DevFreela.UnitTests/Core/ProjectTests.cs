@@ -21,5 +21,19 @@ namespace DevFreela.UnitTests.Core
             Assert.True(project.Status == ProjectsStatusEnum.InProgress);
             Assert.False(project.StartedAt is null);
         }
+
+        [Fact]
+        public void PublicIsInavalidState_Start_ThrowsException()
+        {
+            //Arrange
+            var project = new Project("Projeto B", "Desccricao2", 2, 1, 2000);
+            project.Start();
+
+            //Act + Assert
+            Action? start = project.Start;
+
+            var exception = Assert.Throws<InvalidOperationException>(start);
+            Assert.Equal(Project.INVALID_STATE_MESSAGE, exception.Message);
+        }
     }
 }
