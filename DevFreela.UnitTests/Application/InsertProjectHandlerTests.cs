@@ -1,8 +1,8 @@
 ﻿using DevFreela.Application.Commands.ProjectCommands.InsertProject;
-using DevFreela.Application.Notification.ProjectCreated;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
-using MediatR;
+using DevFreela.UnitTests.Helpers;
+using FluentAssertions;
 using Moq;
 using NSubstitute;
 
@@ -19,14 +19,7 @@ namespace DevFreela.UnitTests.Application
             var repository = Substitute.For<IProjectRepository>();
             repository.Add(Arg.Any<Project>()).Returns(Task.FromResult(ID));
 
-            var command = new InsertProjectCommand
-            {
-                Title = "Projeto A",
-                Description = "Descricao do Projeto",
-                TotalCost = 20000,
-                IdClient = 1,
-                IdFreelancer = 2,
-            };
+            var command = FakeDataHelper.CreateFakeInsertProjectCommand();
 
             var handler = new InsertProjectHandler(repository);
 
@@ -35,7 +28,15 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(1, result.Data);
+
+            // Fluent Assertions
+            result.IsSuccess.Should().BeTrue();
+
+            Assert.Equal(ID, result.Data);
+
+            // Fluent Assertions
+            result.Data.Should().Be(ID);
+
             await repository.Received(1).Add(Arg.Any<Project>());
         }
 
@@ -52,14 +53,7 @@ namespace DevFreela.UnitTests.Application
             var repository =
                 Mock.Of<IProjectRepository>(r => r.Add(It.IsAny<Project>()) == Task.FromResult(ID));
 
-            var command = new InsertProjectCommand
-            {
-                Title = "Projeto A",
-                Description = "Descricao do Projeto",
-                TotalCost = 20000,
-                IdClient = 1,
-                IdFreelancer = 2,
-            };
+            var command = FakeDataHelper.CreateFakeInsertProjectCommand();
 
             var handler = new InsertProjectHandler(repository);
 
@@ -68,7 +62,8 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(1, result.Data);
+
+            Assert.Equal(ID, result.Data);
 
             //mock.Verify(m => m.Add(It.IsAny<Project>()), Times.Once());
 
