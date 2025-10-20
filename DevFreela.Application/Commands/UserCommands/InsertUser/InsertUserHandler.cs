@@ -10,14 +10,18 @@ namespace DevFreela.Application.Commands.UserCommands.InsertUser
         private readonly IUserRepository _repository;
         private readonly IAuthService _authService;
 
-        public InsertUserHandler(IUserRepository context, IAuthService authService)
+        public InsertUserHandler(IUserRepository repository, IAuthService authService)
         {
-            _repository = context;
+            _repository = repository;
             _authService = authService;
         }
         public async Task<ResultViewModel<int>> Handle(InsertUserCommand request, CancellationToken cancellationToken)
         {
-            var user = request.ToEntity(_authService);
+            var user = request.ToEntity();
+
+            var hashredPassword = _authService.ComputeHash(user.Password);
+
+            user.SetPassword(hashredPassword);
 
             await _repository.Add(user);
 

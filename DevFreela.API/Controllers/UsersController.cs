@@ -1,5 +1,6 @@
 ﻿using DevFreela.Application.Commands.UserCommands.DeleteUser;
 using DevFreela.Application.Commands.UserCommands.InsertUser;
+using DevFreela.Application.Commands.UserCommands.LoginUser;
 using DevFreela.Application.Commands.UserCommands.UpdateUser;
 using DevFreela.Application.Models;
 using DevFreela.Application.Queries.UserQueries.GetAllUsers;
@@ -83,16 +84,17 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPut("login")]
-        public async Task<IActionResult> Login(LoginInputModel model)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginUserCommand command)
         {
-            var result = await _mediator.Send(model);
+            var result = await _mediator.Send(command);
 
             if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
 
-            return Ok();
+            return Ok(result);
         }
     }
 }

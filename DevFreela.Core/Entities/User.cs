@@ -11,7 +11,7 @@
             Password = password;
             Role = role;
 
-            Skills = new List<UserSkill>(); 
+            Skills = new List<UserSkill>();
             OwnedProjects = [];
             FreelancerProjects = [];
             Comments = [];
@@ -27,6 +27,11 @@
         public List<Project> OwnedProjects { get; private set; }
         public List<Project> FreelancerProjects { get; private set; }
         public List<ProjectComment> Comments { get; private set; }
+
+        public void SetPassword(string password)
+        {
+            Password = password;
+        }
 
         public void Update(string fullName, string email, DateTime birthDate)
         {

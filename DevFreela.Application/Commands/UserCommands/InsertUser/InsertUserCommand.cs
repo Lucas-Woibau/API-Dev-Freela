@@ -13,10 +13,9 @@ namespace DevFreela.Application.Commands.UserCommands.InsertUser
         public string Password { get; set; }
         public string Role { get; set; }
 
-        public User ToEntity(IAuthService authService)
+        public User ToEntity()
         {
-            var hashedPassword = authService.ComputeHash(Password);
-            return new(FullName, Email, BirthDate, hashedPassword, Role);
+            return new(FullName, Email, BirthDate, Password, Role);
         }
     }
 }

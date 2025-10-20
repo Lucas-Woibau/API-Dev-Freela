@@ -43,6 +43,16 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             return user;
         }
 
+        public async Task<User?> GetByEmail(string userEmail)
+        {
+            var user = await _context.Users
+                .Include(u => u.Skills)
+                .ThenInclude(us => us.Skill)
+                .FirstOrDefaultAsync(u => u.Email == userEmail);
+
+            return user;
+        }
+
         public async Task<int> Add(User user)
         {
             await _context.Users.AddAsync(user);
@@ -75,6 +85,6 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             user.SetAsDeleted();
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
-        }
+        }        
     }
 }
