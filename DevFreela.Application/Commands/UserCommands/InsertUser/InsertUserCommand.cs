@@ -1,5 +1,6 @@
 ﻿using DevFreela.Application.Models;
 using DevFreela.Core.Entities;
+using DevFreela.Infrastructure.Auth;
 using MediatR;
 
 namespace DevFreela.Application.Commands.UserCommands.InsertUser
@@ -9,8 +10,13 @@ namespace DevFreela.Application.Commands.UserCommands.InsertUser
         public string FullName { get; set; }
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
 
-        public User ToEntity()
-            => new(FullName, Email, BirthDate);
+        public User ToEntity(IAuthService authService)
+        {
+            var hashedPassword = authService.ComputeHash(Password);
+            return new(FullName, Email, BirthDate, hashedPassword, Role);
+        }
     }
 }
