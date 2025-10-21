@@ -11,6 +11,8 @@ builder.Services
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

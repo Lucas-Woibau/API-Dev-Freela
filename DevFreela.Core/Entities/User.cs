@@ -33,6 +33,11 @@
             Password = password;
         }
 
+        public void UpdatePassword(string password)
+        {
+            Password = password;
+        }
+
         public void Update(string fullName, string email, DateTime birthDate)
         {
             FullName = fullName;

@@ -1,5 +1,5 @@
 @DevFreela.API_HostAddress = https://localhost:7180/api
-@JwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx1Y2Fzd29pYmF1QGhvdG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRnJlZWxhbmNlciIsImV4cCI6MTc2MTAxMDA0MSwiaXNzIjoiRGV2RnJlZWxhLkFQSSIsImF1ZCI6IkRldkZyZWVsYUFwcCJ9.vIh5EXNdjOxtIV9X8XlHrXI9jkOfERkVSb5ivbpZpRg
+@JwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvYW9zaWx2YUBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDbGllbnQiLCJleHAiOjE3NjEwNTQ2MDQsImlzcyI6IkRldkZyZWVsYS5BUEkiLCJhdWQiOiJEZXZGcmVlbGFBcHAifQ.rNqIe60A3qpiVkQgsH5Fc8qWPn4lxeTcPAfdl5c4CUI
 
 ### Get All Projects
 GET {{DevFreela.API_HostAddress}}/projects?search=crm
@@ -12,10 +12,10 @@ POST {{DevFreela.API_HostAddress}}/projects
 Authorization: Bearer {{JwtToken}}
 Content-Type: application/json  
 {
-  "title": "O Projeto 5",
+  "title": "O Projeto",
   "description": "Um maravilhoso projeto",
-  "idClient": 3,
-  "idFreelancer": 2,
+  "idClient": 1,
+  "idFreelancer": 1,
   "totalCost": 25000
 }
 ###
