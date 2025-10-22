@@ -77,4 +77,4 @@ A API possui documentação interativa via **Swagger**, disponível ao rodar a a
 
 ## 🔗 Contato
 
-Desenvolvido por **[Lucas Woibau]**, para prática avançada de backend com .NET.
+Desenvolvido por **Lucas Woibau**, para prática avançada de backend com .NET.
