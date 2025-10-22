@@ -26,7 +26,7 @@ namespace DevFreela.Application.Commands.UserCommands.LoginUser
                 return ResultViewModel<LoginViewModel?>.Error("Erro de login.");
             }
 
-            var token = _authService.GenerateToken(request.Email, request.Role);
+            var token = _authService.GenerateToken(user.Email, user.Role);
 
             var viewModel = new LoginViewModel(token);
 

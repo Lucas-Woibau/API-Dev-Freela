@@ -1,14 +1,15 @@
-﻿using DevFreela.Application.Commands.UserCommands.DeleteUser;
+﻿using DevFreela.Application.Commands.UserCommands.ChangePassword;
+using DevFreela.Application.Commands.UserCommands.DeleteUser;
 using DevFreela.Application.Commands.UserCommands.InsertUser;
 using DevFreela.Application.Commands.UserCommands.LoginUser;
+using DevFreela.Application.Commands.UserCommands.RecoveryPassword;
 using DevFreela.Application.Commands.UserCommands.UpdateUser;
-using DevFreela.Application.Models;
+using DevFreela.Application.Commands.UserCommands.ValidatePasswordRecoveryCommand;
 using DevFreela.Application.Queries.UserQueries.GetAllUsers;
 using DevFreela.Application.Queries.UserQueries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace DevFreela.API.Controllers
 {
@@ -92,6 +93,48 @@ namespace DevFreela.API.Controllers
             if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("password-recovery/request")]
+        [AllowAnonymous]
+        public async Task<IActionResult>RequestPasswordRecovery(PasswordRecoveryCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("password-recovery/validade")]
+        [AllowAnonymous]
+        public async Task<IActionResult>ValidateRecoveryCode(ValidatePasswordRecoveryCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("password-recovery/change")]
+        [AllowAnonymous]
+        public async Task<IActionResult>ChangePassword(ChangePasswordCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
             }
 
             return Ok(result);

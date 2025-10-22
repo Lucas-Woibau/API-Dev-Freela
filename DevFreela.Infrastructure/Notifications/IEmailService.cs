@@ -26,7 +26,7 @@ namespace DevFreela.Infrastructure.Notifications
         {
             var sendGridMessage = new SendGridMessage
             {
-                From = new EmailAddress(email),
+                From = new EmailAddress(_fromEmail, _fromName),
                 Subject = subject,
             };
 

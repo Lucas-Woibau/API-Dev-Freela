@@ -1,5 +1,5 @@
 @DevFreela.API_HostAddress = https://localhost:7180/api
-@JwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvYW9zaWx2YUBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDbGllbnQiLCJleHAiOjE3NjEwNTQ2MDQsImlzcyI6IkRldkZyZWVsYS5BUEkiLCJhdWQiOiJEZXZGcmVlbGFBcHAifQ.rNqIe60A3qpiVkQgsH5Fc8qWPn4lxeTcPAfdl5c4CUI
+@JwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhZm9tNzkwMzRAZm94cm9pZHMuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRnJlZWxhbmNlciIsImV4cCI6MTc2MTEwMjA4NywiaXNzIjoiRGV2RnJlZWxhLkFQSSIsImF1ZCI6IkRldkZyZWVsYUFwcCJ9.h8JoYJD_1va8H3Hpi3k1sq7rTXxqg9sgXdCwigRsIY0
 
 ### Get All Projects
 GET {{DevFreela.API_HostAddress}}/projects?search=crm
@@ -20,21 +20,139 @@ Content-Type: application/json
 }
 ###
 
-### Login as a Freelancer
-PUT {{DevFreela.API_HostAddress}}/users/login
-Content-Type: application/json
+## Post a new Freelancer User
+POST {{DevFreela.API_HostAddress}}/users
+Content-Type: application/json  
 {
-  "email": "lucaswoibau@hotmail.com",
-  "password": "123321",
+  "fullname": "Mario das Neves",
+  "email": "rafom79034@foxroids.com",
+  "birthDate": "1990-01-01",
+  "password": "321123",
   "role": "Freelancer"
 }
-### Login as a Client
+
+### Login as the created freelancer
 PUT {{DevFreela.API_HostAddress}}/users/login
 Content-Type: application/json
+
 {
-  "email": "joaosilva@gmail.com",
-  "password": "123123",
-  "role": "Client"
+  "email": "xihisa5599@fenxz.com",
+  "password": "newStrongPassword123"
 }
+
+### Login as the created client
+PUT {{DevFreela.API_HostAddress}}/users/login
+Content-Type: application/json
+
+{
+  "email": "rafom79034@foxroids.com",
+  "password": "12"
+}
+
+### Get a user by ID (requires authorization)
+GET {{DevFreela.API_HostAddress}}/users/1
+Authorization: Bearer {{JwtToken}}
+
+### Add skills to a user (requires authorization)
+POST {{DevFreela.API_HostAddress}}/users/1/skills
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+
+{
+  "skillIds": [1, 2, 3]
+}
+
+### Get all skills (requires authorization)
+GET {{DevFreela.API_HostAddress}}/skills
+Authorization: Bearer {{JwtToken}}
+
+### Create a new skill (requires authorization)
+POST {{DevFreela.API_HostAddress}}/skills
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+
+{
+  "description": "C#"
+}
+
+### Get all projects (requires authorization)
+GET {{DevFreela.API_HostAddress}}/projects?search=crm
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+
+### Create a new project (requires authorization)
+POST {{DevFreela.API_HostAddress}}/projects
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+
+{
+  "title": "New Project",
+  "description": "A description for the new project",
+  "idClient": 3,
+  "idFreelancer": 2,
+  "totalCost": 5000
+}
+
+### Update a project (requires authorization)
+PUT {{DevFreela.API_HostAddress}}/projects/1
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+
+{
+  "idProject": 1,
+  "title": "Updated Project Title",
+  "description": "Updated description for the project",
+  "totalCost": 7500
+}
+
+### Delete a project (requires authorization)
+DELETE {{DevFreela.API_HostAddress}}/projects/1
+Authorization: Bearer {{JwtToken}}
+
+### Start a project (requires authorization)
+PUT {{DevFreela.API_HostAddress}}/projects/1/start
+Authorization: Bearer {{JwtToken}}
+
+### Complete a project (requires authorization)
+PUT {{DevFreela.API_HostAddress}}/projects/1/complete
+Authorization: Bearer {{JwtToken}}
+
+### Add a comment to a project (requires authorization)
+POST {{DevFreela.API_HostAddress}}/projects/1/comments
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+
+{
+  "content": "This is a comment on the project",
+  "idProject": 1,
+  "idUser": 2
+}
+
+### Request Password Recovery
+POST {{DevFreela.API_HostAddress}}/users/password-recovery/request
+Content-Type: application/json
+{
+  "email": "rafom79034@foxroids.com"
+}
+
+### Validate Recovery Code
+POST {{DevFreela.API_HostAddress}}/users/password-recovery/validate
+Content-Type: application/json
+
+{
+  "email": "xihisa5599@fenxz.com",
+  "code": "467001"
+}
+
+### Change Password
+POST {{DevFreela.API_HostAddress}}/users/password-recovery/change
+Content-Type: application/json
+
+{
+  "email": "rafom79034@foxroids.com",
+  "code": "670418",
+  "newPassword": "12345"
+}
+
 
 
