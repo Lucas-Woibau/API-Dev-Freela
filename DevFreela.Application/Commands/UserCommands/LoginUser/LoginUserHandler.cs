@@ -21,7 +21,7 @@ namespace DevFreela.Application.Commands.UserCommands.LoginUser
 
             var user = await _repository.GetByEmail(request.Email);
 
-            if (user is null)
+            if (user is null || user.Password != hash)
             {
                 return ResultViewModel<LoginViewModel?>.Error("Erro de login.");
             }

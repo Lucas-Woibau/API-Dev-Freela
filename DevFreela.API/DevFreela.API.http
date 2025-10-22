@@ -36,8 +36,8 @@ PUT {{DevFreela.API_HostAddress}}/users/login
 Content-Type: application/json
 
 {
-  "email": "xihisa5599@fenxz.com",
-  "password": "newStrongPassword123"
+  "email": "rafom79034@foxroids.com",
+  "password": "122333"
 }
 
 ### Login as the created client
@@ -140,8 +140,8 @@ POST {{DevFreela.API_HostAddress}}/users/password-recovery/validate
 Content-Type: application/json
 
 {
-  "email": "xihisa5599@fenxz.com",
-  "code": "467001"
+  "email": "rafom79034@foxroids.com",
+  "code": "463889"
 }
 
 ### Change Password
@@ -150,8 +150,8 @@ Content-Type: application/json
 
 {
   "email": "rafom79034@foxroids.com",
-  "code": "670418",
-  "newPassword": "12345"
+  "code": "463889",
+  "newPassword": "122333"
 }
 
 
